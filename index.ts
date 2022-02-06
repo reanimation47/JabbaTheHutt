@@ -160,6 +160,43 @@ function sumNumbers(string:string) {
   return result;
 }
 
+// Multiply digits 
+function mulStr(string:string) {
+    let pos = 1;
+    let numArray = [];
+    let numString = null;
+  
+    for (let num of string) {
+      let isParsed = isNaN(parseInt(num));
+      if (!numString && !isParsed && pos === string.length) {
+        numArray.push(num);
+      } else if (!numString && !isParsed && pos !== string.length) {
+        numString = num;
+      } else if (numString && !isParsed && pos === string.length) {
+        numString += num;
+        numArray.push(numString);
+      } else if (numString && isParsed && pos === string.length) {
+        numArray.push(numString);
+      } else if (numString && !isParsed) {
+        numString += num;
+      } else if (numString && isParsed && pos !== string.length) {
+        numArray.push(numString);
+        numString = null;
+      } else if (!numString && isParsed && pos === string.length) {
+        numString += num;
+        numArray.push(numString);
+      }
+      pos++;
+    }
+  //   console.log('numAray:', numArray);
+    let result = 1;
+  
+    for (let num of numArray) {
+      let value = parseInt(num!);
+      result = result * value;
+    }
+    return result;
+  }
 
   
 
@@ -259,6 +296,10 @@ client.on('messageCreate', (message) => {
     } else if (mess.includes('voi')||mess.includes('them')) {
         let sum1 = sumNumbers(mess)
         message.channel.send(`làaa ${sum1}`);
+
+    } else if (mess.includes('*')) {
+        let pro1 = mulStr(mess)
+        message.channel.send(`làaa ${pro1}`);
 
     }
 })
