@@ -236,6 +236,7 @@ function removeVN(str: string) {
 client.on('messageCreate', (message) => {
     let mes: string = message.content.toLowerCase()
     let mess: string = removeVN(mes)
+    const multiplySign = /[*]+/;
     if (message.author.username === "jabba the hutttt") return;
     // if(message.author.bot) return;
     if (mess === 'ping') {
@@ -297,7 +298,7 @@ client.on('messageCreate', (message) => {
         let sum1 = sumNumbers(mess)
         message.channel.send(`làaa ${sum1}`);
 
-    } else if (mess.includes('*')) {
+    } else if (mess.includes(' x ')) {
         let pro1 = mulStr(mess)
         message.channel.send(` = ${pro1}`);
 
