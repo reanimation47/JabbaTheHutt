@@ -103,6 +103,66 @@ var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 // var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 // var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+// Calc sum from all 1-digit from string
+function StringSum(str:string) {
+    let nums = [];
+    let sum = 0;
+  
+    for (let i = 0; i < str.length; i++) {
+      if (!isNaN(Number(str[i]))) {
+        nums.push(Number(str[i]));
+      }
+    }
+    console.log(nums);
+    for (let i = 0; i < nums.length; i++) {
+      sum += nums[i];
+    }
+    return sum;
+  }
+  
+//Calc all digits from string
+
+
+function sumNumbers(string:string) {
+  let pos = 1;
+  let numArray = [];
+  let numString = null;
+
+  for (let num of string) {
+    let isParsed = isNaN(parseInt(num));
+    if (!numString && !isParsed && pos === string.length) {
+      numArray.push(num);
+    } else if (!numString && !isParsed && pos !== string.length) {
+      numString = num;
+    } else if (numString && !isParsed && pos === string.length) {
+      numString += num;
+      numArray.push(numString);
+    } else if (numString && isParsed && pos === string.length) {
+      numArray.push(numString);
+    } else if (numString && !isParsed) {
+      numString += num;
+    } else if (numString && isParsed && pos !== string.length) {
+      numArray.push(numString);
+      numString = null;
+    } else if (!numString && isParsed && pos === string.length) {
+      numString += num;
+      numArray.push(numString);
+    }
+    pos++;
+  }
+//   console.log('numAray:', numArray);
+  let result = 0;
+
+  for (let num of numArray) {
+    let value = parseInt(num!);
+    result += value;
+  }
+  return result;
+}
+
+
+  
+
 
 // Remove accents
 
@@ -195,6 +255,10 @@ client.on('messageCreate', (message) => {
 
     } else if (mess.includes('xin loi')) {
         message.channel.send("Biết lỗi là ngoan đó em");
+
+    } else if (mess.includes('voi')||mess.includes('them')) {
+        let sum1 = sumNumbers(mess)
+        message.channel.send(`làaa ${sum1}`);
 
     }
 })
