@@ -299,7 +299,7 @@ client.on('messageCreate', (message) => {
 
     } else if (mess.includes('*')) {
         let pro1 = mulStr(mess)
-        message.channel.send(`làaa ${pro1}`);
+        message.channel.send(` = ${pro1}`);
 
     }
 })
