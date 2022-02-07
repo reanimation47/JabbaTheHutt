@@ -14,7 +14,9 @@
   "dependencies": {
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
-    "nodemon": "^2.0.15"
+    "imagesize": "^1.0.0",
+    "nodemon": "^2.0.15",
+    "probe-image-size": "^7.2.3"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.13"
