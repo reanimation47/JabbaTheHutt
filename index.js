@@ -343,7 +343,8 @@ client.on('messageCreate', function (message) {
         message.channel.send(laugh[random]);
     }
     else if (mess.includes('sexy') || mess.includes('sexi')) {
-        message.channel.send('https://tenor.com/view/jabba-leia-jabba-leia-jabba-lick-gif-18933413');
+        var random = Math.floor(Math.random() * sexi.length);
+        message.channel.send(sexi[random]);
     }
     else if (mess.includes('showid')) {
         message.channel.send(message.author.id);
