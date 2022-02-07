@@ -111,15 +111,50 @@ function randomString() {
 ;
 var a = randomString();
 console.log(a);
-const probe = require('probe-image-size');
-async function hello(){
-    let result = await probe(a, { rejectUnauthorized: false });
-console.log(result);
+// Get img's metadata
+var probe = require('probe-image-size');
+function getData(img) {
+    return __awaiter(this, void 0, void 0, function () {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, probe(img)];
+                case 1:
+                    result = _a.sent();
+                    return [2 /*return*/, result.url];
+            }
+        });
+    });
 }
-hello()
-
-
-
+//Get random valid imgur images
+function valid() {
+    return __awaiter(this, void 0, void 0, function () {
+        var imgUrl, con, rand;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    con = true;
+                    _a.label = 1;
+                case 1:
+                    if (!(con === true)) return [3 /*break*/, 4];
+                    return [4 /*yield*/, randomString()];
+                case 2:
+                    rand = _a.sent();
+                    return [4 /*yield*/, getData(rand)];
+                case 3:
+                    imgUrl = _a.sent();
+                    con = imgUrl.includes('removed');
+                    console.log(imgUrl);
+                    return [3 /*break*/, 1];
+                case 4: return [2 /*return*/, imgUrl];
+            }
+        });
+    });
+}
+// (async () => {
+//   const res = await valid()
+//   console.log(`da stuff is ${res}`)
+// })();
 // Calc jail time left
 var outTime = new Date("Nov 13, 2029 15:37:25").getTime();
 var now = new Date().getTime();
@@ -294,10 +329,6 @@ client.on('messageCreate', function (message) {
     else if (mess.includes('tu') && mess.includes('ra')) {
         message.channel.send("dm b\u1EA3nh ngu ".concat(days, " \u0274\u0262\u00E0\u028F ").concat(hours, " gi\u1EDD \u0274\u1EEF\u1D00 \u0280\u1D00 \u1D1B\u00F9"));
     }
-    else if (mess.includes('pic')) {
-        var srC = randomString();
-        message.channel.send({ files: [srC] });
-    }
     else if (mess.includes('sad')) {
         message.channel.send("https://tenor.com/view/dont-cry-dont-worry-dont-be-sad-there-there-friends-gif-10717838");
     }
@@ -327,6 +358,20 @@ client.on('messageCreate', function (message) {
     else if (mess.includes(' x ')) {
         var pro1 = mulStr(mess);
         message.channel.send(" = ".concat(pro1));
+    }
+    else if (mess.includes('pic')) {
+        (function () { return __awaiter(void 0, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, valid()];
+                    case 1:
+                        res = _a.sent();
+                        message.channel.send({ files: [res] });
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
     }
 });
 // commands
