@@ -1,15 +1,18 @@
 import { Intents, Message } from 'discord.js';
 import * as DiscordJS from 'discord.js'
 import * as dotenv from 'dotenv';
-
+const DisTube = require('distube')
 dotenv.config();
 
 const client = new DiscordJS.Client({
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_VOICE_STATES,
   ]
 });
+const distube = new DisTube.default(client)
+
 
 client.on('ready', () => {
   console.log('The bot is ready')
@@ -315,7 +318,7 @@ client.on('messageCreate', (message) => {
   } else if (mess.includes('poc')) {
     message.channel.send('poc');
 
-  } else if (mess.includes('hah') || mess.includes('heh') || mess.includes('hoh') || mess.includes('fun') || mess.includes('cuoi') || mess.includes('hi')) {
+  } else if (mess.includes('hah') || mess.includes('heh') || mess.includes('hoh') || mess.includes('fun') || mess.includes('cuoi') || mess.includes('jabba')) {
     let random = Math.floor(Math.random() * laugh.length);
     message.channel.send(laugh[random]);
 
@@ -379,8 +382,49 @@ client.on('interactionCreate', async (interaction) => {
     }
   }
 })
+distube.on('error', (channel, error) => {
+	console.error(error)
+	channel.send(`An error encoutered: ${error.slice(0, 1979)}`) // Discord limits 2000 characters in a message
+})
 
+const prefix = "jabba"
+// Music
+client.on('messageCreate', message => {
+	if (!message.content.startsWith(prefix) || message.author.bot) return
 
+	const args:any = message.content.slice(prefix.length).trim().split(' ')
+	const command = args.shift().toLowerCase()
+
+  if (command === 'play') {
+    
+    
+    if (!message.member.voice.channel){
+      message.channel.send('jabba u dumb')
+      return
+    }
+    if (!args[0]){
+      message.channel.send('jabba u dumbass')
+      return
+    }
+    message.channel.send('jabba bout to play a song')
+    distube.play(message, args.join(' '))
+  }
+  
+  if (command === 'stop') {
+    
+    const bot = message.guild.members.cache.get(client.user.id);
+    if (!message.member.voice.channel){
+      message.channel.send('jabba u dumb')
+      return
+    }
+    if (bot.voice.channel !== message.member.voice.channel){
+      message.channel.send('jabba u dumb dumb')
+      return
+    }
+    distube.stop(message)
+  }
+
+})
 
 
 
@@ -397,3 +441,4 @@ client.on('interactionCreate', async (interaction) => {
 // }
 ///////////////////////////////
 client.login(process.env.TOKEN)
+
