@@ -455,10 +455,14 @@ client.on('messageCreate', message => {
 
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+    message.channel.send(laugh[random]);
       return
     }
     if (!args[0]) {
       message.channel.send('jabba u dumbass')
+      let random = Math.floor(Math.random() * laugh.length);
+    message.channel.send(laugh[random]);
       return
     }
     message.channel.send('jabba bout to play a song')
@@ -475,10 +479,14 @@ client.on('messageCreate', message => {
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+    message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+    message.channel.send(laugh[random]);
       return
     }
     distube.stop(message)
@@ -491,10 +499,14 @@ client.on('messageCreate', message => {
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+    message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+    message.channel.send(laugh[random]);
       return
     }
     distube.stop(message)
@@ -509,6 +521,8 @@ client.on('messageCreate', message => {
   if (command == "volume") {
     if (isNaN(args[0])) {
       message.channel.send('jabba u dumbling')
+      let random = Math.floor(Math.random() * laugh.length);
+    message.channel.send(laugh[random]);
       return
     }
     distube.setVolume(message, Number(args[0]));
