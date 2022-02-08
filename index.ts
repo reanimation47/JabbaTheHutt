@@ -486,22 +486,8 @@ client.on('messageCreate', message => {
 
   }
 
-  if ([`3d`, `bassboost`, `echo`, `karaoke`, `nightcore`, `vaporwave`].includes(command)) {
-    const filter = distube.setFilter(message, command)
-    message.channel.send(`Current queue filter: ${filter.join(", ") || "Off"}`)
-  }
-  if (command == "volume"){
-    if(isNaN(args[0])){
-      message.channel.send('jabba u dumbling')
-      return
-    }
-    distube.setVolume(message, Number(args[0]));
-    message.channel.send(`jabba changed volume to ${args[0]}%`)
-  }
-  
-    
+  if (command === 'stfu') {
 
-  if (command === "leave") {
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
@@ -509,6 +495,40 @@ client.on('messageCreate', message => {
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
+      return
+    }
+    distube.stop(message)
+    message.channel.send("jabba stopped")
+
+  }
+
+  if ([`3d`, `bassboost`, `echo`, `karaoke`, `nightcore`, `vaporwave`].includes(command)) {
+    const filter = distube.setFilter(message, command)
+    message.channel.send(`Current queue filter: ${filter.join(", ") || "Off"}`)
+  }
+  if (command == "volume") {
+    if (isNaN(args[0])) {
+      message.channel.send('jabba u dumbling')
+      return
+    }
+    distube.setVolume(message, Number(args[0]));
+    message.channel.send(`jabba changed volume to ${args[0]}%`)
+  }
+
+
+
+  if (command === "leave") {
+    const bot = message.guild.members.cache.get(client.user.id);
+    if (!message.member.voice.channel) {
+      message.channel.send('jabba u dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
+      return
+    }
+    if (bot.voice.channel !== message.member.voice.channel) {
+      message.channel.send('jabba u dumb dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
       return
     }
     distube.voices.get(message)?.leave()
@@ -518,10 +538,14 @@ client.on('messageCreate', message => {
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
       return
     }
     distube.resume(message)
@@ -532,10 +556,14 @@ client.on('messageCreate', message => {
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
       return
     }
     distube.pause(message)
@@ -545,10 +573,14 @@ client.on('messageCreate', message => {
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
+      let random = Math.floor(Math.random() * laugh.length);
+      message.channel.send(laugh[random]);
       return
     }
     distube.skip(message)
