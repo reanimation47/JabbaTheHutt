@@ -1,7 +1,7 @@
 import { Intents, Message } from 'discord.js';
 import * as DiscordJS from 'discord.js'
 import * as dotenv from 'dotenv';
-const DisTube = require('distube')
+const { DisTube } = require('distube')
 dotenv.config();
 
 const client = new DiscordJS.Client({
@@ -11,7 +11,7 @@ const client = new DiscordJS.Client({
     Intents.FLAGS.GUILD_VOICE_STATES,
   ]
 });
-const distube = new DisTube.default(client)
+// const distube = new DisTube.default(client)
 
 
 client.on('ready', () => {
@@ -112,7 +112,7 @@ async function valid() {
     imgUrl = await getData(rand)
     con = imgUrl.includes('removed')
     console.log(imgUrl)
-    
+
   }
   return imgUrl
 
@@ -318,13 +318,13 @@ client.on('messageCreate', (message) => {
   } else if (mess.includes('poc')) {
     message.channel.send('poc');
 
-  } else if (mess.includes('hah') || mess.includes('heh') || mess.includes('hoh') || mess.includes('fun') || mess.includes('cuoi') || mess.includes('jabba')) {
+  } else if (mess.includes('hah') || mess.includes('heh') || mess.includes('hoh') || mess.includes('fun') || mess.includes('cuoi') || mess.includes('dumb')) {
     let random = Math.floor(Math.random() * laugh.length);
     message.channel.send(laugh[random]);
 
   } else if (mess.includes('sexy') || mess.includes('sexi')) {
     var random = Math.floor(Math.random() * sexi.length);
-        message.channel.send(sexi[random]);
+    message.channel.send(sexi[random]);
 
   } else if (mess.includes('showid')) {
     message.channel.send(message.author.id);
@@ -382,50 +382,197 @@ client.on('interactionCreate', async (interaction) => {
     }
   }
 })
-distube.on('error', (channel, error) => {
-	console.error(error)
-	channel.send(`An error encoutered: ${error.slice(0, 1979)}`) // Discord limits 2000 characters in a message
+
+
+//Using distube for Music
+
+
+
+
+const distube = new DisTube(client, {
+  searchSongs: 10,
+  searchCooldown: 30,
+  leaveOnEmpty: false,
+  leaveOnFinish: false,
+  leaveOnStop: false,
+
 })
 
 const prefix = "jabba"
+
+
+//Bot status messages
+const status = queue =>
+  `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(", ") || "Off"}\` | Loop: \`${queue.repeatMode ? (queue.repeatMode === 2 ? "All Queue" : "This Song") : "Off"
+  }\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
+
+//Bot event listeners
+distube
+  .on("playSong", (queue, song) =>
+    queue.textChannel.send(
+      `jabba playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user.tag}\n${status(queue)}`
+    )
+  )
+  .on("addSong", (queue, song) =>
+    queue.textChannel.send(`jabba added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user.tag}`)
+  )
+  .on("addList", (queue, playlist) =>
+    queue.textChannel.send(
+      `jabba added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to queue\n${status(queue)}`
+    )
+  )
+  .on("error", (textChannel, e) => {
+    console.error(e)
+    textChannel.send(`An error encountered`)
+  })
+  .on("finish", queue => queue.textChannel.send("jabba done"))
+  .on("finishSong", queue => queue.textChannel.send("jabba done"))
+  .on("disconnect", queue => queue.textChannel.send("jabba gone"))
+  .on("empty", queue => queue.textChannel.send("jabba u dumb"))
+  // DisTubeOptions.searchSongs > 1
+  .on("searchResult", (message, result) => {
+    let i = 0
+    message.channel.send(
+      `**Choose an option from below**\n${result
+        .map(song => `**${++i}**. ${song.name} - \`${song.formattedDuration}\``)
+        .join("\n")}\n*Enter anything else or wait 30 seconds to cancel*`
+    )
+  })
+  .on("searchCancel", message => message.channel.send(`Searching canceled`))
+  .on("searchInvalidAnswer", message => message.channel.send(`Invalid number of result.`))
+  .on("searchNoResult", message => message.channel.send(`No result found!`))
+  .on("searchDone", () => { })
+
 // Music
 client.on('messageCreate', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return
+  if (!message.content.startsWith(prefix) || message.author.bot) return
 
-	const args:any = message.content.slice(prefix.length).trim().split(' ')
-	const command = args.shift().toLowerCase()
+  const args: any = message.content.slice(prefix.length).trim().split(/ +/g)
+  const command = args.shift().toLowerCase()
 
   if (command === 'play') {
-    
-    
-    if (!message.member.voice.channel){
+
+
+    if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
       return
     }
-    if (!args[0]){
+    if (!args[0]) {
       message.channel.send('jabba u dumbass')
       return
     }
     message.channel.send('jabba bout to play a song')
     distube.play(message, args.join(' '))
   }
-  
+
+  if (["repeat", "loop"].includes(command)) {
+    const mode = distube.setRepeatMode(message)
+    message.channel.send(`jabba set repeat mode to \`${mode ? (mode === 2 ? "All Queue" : "This Song") : "Off"}\``)
+  }
+
   if (command === 'stop') {
-    
+
     const bot = message.guild.members.cache.get(client.user.id);
-    if (!message.member.voice.channel){
+    if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
       return
     }
-    if (bot.voice.channel !== message.member.voice.channel){
+    if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
       return
     }
     distube.stop(message)
+    message.channel.send("jabba stopped")
+
+  }
+
+  if ([`3d`, `bassboost`, `echo`, `karaoke`, `nightcore`, `vaporwave`].includes(command)) {
+    const filter = distube.setFilter(message, command)
+    message.channel.send(`Current queue filter: ${filter.join(", ") || "Off"}`)
+  }
+  if (command == "volume"){
+    if(isNaN(args[0])){
+      message.channel.send('jabba u dumbling')
+      return
+    }
+    distube.setVolume(message, Number(args[0]));
+    message.channel.send(`jabba changed volume to ${args[0]}%`)
+  }
+  
+    
+
+  if (command === "leave") {
+    const bot = message.guild.members.cache.get(client.user.id);
+    if (!message.member.voice.channel) {
+      message.channel.send('jabba u dumb')
+      return
+    }
+    if (bot.voice.channel !== message.member.voice.channel) {
+      message.channel.send('jabba u dumb dumb')
+      return
+    }
+    distube.voices.get(message)?.leave()
+    message.channel.send("jabba left")
+  }
+  if (command === "resume") {
+    const bot = message.guild.members.cache.get(client.user.id);
+    if (!message.member.voice.channel) {
+      message.channel.send('jabba u dumb')
+      return
+    }
+    if (bot.voice.channel !== message.member.voice.channel) {
+      message.channel.send('jabba u dumb dumb')
+      return
+    }
+    distube.resume(message)
+    message.channel.send("jabba resumed")
+  }
+
+  if (command === "pause") {
+    const bot = message.guild.members.cache.get(client.user.id);
+    if (!message.member.voice.channel) {
+      message.channel.send('jabba u dumb')
+      return
+    }
+    if (bot.voice.channel !== message.member.voice.channel) {
+      message.channel.send('jabba u dumb dumb')
+      return
+    }
+    distube.pause(message)
+    message.channel.send("jabba paused")
+  }
+  if (command === "skip") {
+    const bot = message.guild.members.cache.get(client.user.id);
+    if (!message.member.voice.channel) {
+      message.channel.send('jabba u dumb')
+      return
+    }
+    if (bot.voice.channel !== message.member.voice.channel) {
+      message.channel.send('jabba u dumb dumb')
+      return
+    }
+    distube.skip(message)
+    message.channel.send("jabba skipped")
+  }
+
+  if (command === "queue") {
+    const queue = distube.getQueue(message)
+    if (!queue) {
+      message.channel.send("jabba no playing rn")
+    } else {
+      message.channel.send(
+        `Current queue:\n${queue.songs
+          .map((song, id) => `**${id ? id : "Playing"}**. ${song.name} - \`${song.formattedDuration}\``)
+          .slice(0, 10)
+          .join("\n")}`
+      )
+    }
+
+
+
   }
 
 })
-
 
 
 
