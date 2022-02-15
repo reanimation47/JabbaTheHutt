@@ -1,6 +1,7 @@
 import { Intents, Message } from 'discord.js';
 import * as DiscordJS from 'discord.js'
 import * as dotenv from 'dotenv';
+import fetch from 'cross-fetch';
 const { DisTube } = require('distube')
 dotenv.config();
 
@@ -347,6 +348,26 @@ client.on('messageCreate', (message) => {
     })();
 
 
+  } else if (mess.includes('bitcoin')||mess.includes('btc')){
+    const getBtcData = async () => {
+      fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD')
+     .then(response => response.json())
+     .then(data => {
+       console.log(data);
+       message.channel.send(`bitcoin price rn is ${data.USD}$` )
+     });
+    }
+    getBtcData()
+  }else if (mess.includes('ethereum')||mess.includes('eth')){
+    const getBtcData = async () => {
+      fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
+     .then(response => response.json())
+     .then(data => {
+       console.log(data);
+       message.channel.send(`ethereum price rn is ${data.USD}$` )
+     });
+    }
+    getBtcData()
   }
 })
 
@@ -622,6 +643,18 @@ client.on('messageCreate', message => {
 
 
 
+const getBtcData = async () => {
+  fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD')
+ .then(response => response.json())
+ .then(data => {
+   console.log(data);
+   
+   
+ });
+ 
+}
+
+
 //                      weird                  //
 // else if (mess.includes('banh xin loi di')) {
 //     message.channel.send('dm banh');
@@ -634,4 +667,3 @@ client.on('messageCreate', message => {
 // }
 ///////////////////////////////
 client.login(process.env.TOKEN)
-
