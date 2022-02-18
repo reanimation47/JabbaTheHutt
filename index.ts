@@ -335,7 +335,10 @@ client.on('messageCreate', (message) => {
 
   } else if (mess.includes('voi') || mess.includes('them')) {
     let sum1 = sumNumbers(mess)
-    message.channel.send(`làaa ${sum1}`);
+    if (!isNaN(sum1)){
+      message.channel.send(`làaa ${sum1}`);
+    }
+    
 
   } else if (mess.includes(' x ')) {
     let pro1 = mulStr(mess)
@@ -348,26 +351,94 @@ client.on('messageCreate', (message) => {
     })();
 
 
-  } else if (mess.includes('bitcoin')||mess.includes('btc')){
+  } else if (mess.includes('bitcoin') || mess.includes('btc')) {
     const getBtcData = async () => {
       fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD')
-     .then(response => response.json())
-     .then(data => {
-       console.log(data);
-       message.channel.send(`bitcoin price rn is ${data.USD}$` )
-     });
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          message.channel.send(`bitcoin price rn is ${data.USD}$`)
+        });
     }
     getBtcData()
-  }else if (mess.includes('ethereum')||mess.includes('eth')){
+  } else if (mess.includes('ethereum') || mess.includes('eth')) {
     const getBtcData = async () => {
       fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
-     .then(response => response.json())
-     .then(data => {
-       console.log(data);
-       message.channel.send(`ethereum price rn is ${data.USD}$` )
-     });
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          message.channel.send(`ethereum price rn is ${data.USD}$`)
+        });
     }
     getBtcData()
+  } else if (mess.includes('jabba count')) {
+    let sum = sumNumbers(mess);
+    if (isNaN(sum)) {
+      message.channel.send(`U did something wrong ${message.author.username}`)
+      message.channel.send('Example : jabba count 10')
+      return
+    }
+    let ms = sum * 1000;
+    if (sum > 3600) {
+      message.channel.send('Jabba dont wanna count beyond 3600 seconds')
+      return
+    }
+    message.channel.send(`jabba counting down from ${sum} seconds `)
+    function printEnd() {
+      message.channel.send(`${sum} seconds have passed.`)
+      console.log(`Jabba finished counting ${sum} seconds`)
+    }
+    function Count(time) {
+      setTimeout(printEnd, time)
+    }
+    Count(ms)
+
+  } else if (mess.includes('jabba remind me to')) {
+    let sum = sumNumbers(mess);
+    let work = mess.substring(19, mess.length - 4)
+    if (isNaN(sum)) {
+      message.channel.send(`U did something wrong ${message.author.username}`)
+      message.channel.send('Proper syntax : jabba remind me to study in 5')
+      return
+    }
+    let ms = sum * 1000 * 60;
+    if (sum > 60) {
+      message.channel.send('Jabba dont wanna count beyond 60 minutes')
+      return
+    }
+    message.channel.send(`jabba will remind u to ${work}in ${sum} minutes  `)
+    function printEnd() {
+      message.channel.send(`${sum} minutes have passed.`)
+      message.channel.send(`Hey ${message.author.username} its time to ${work}`)
+      console.log(`Jabba finished counting ${sum} minute`)
+    }
+    function Count(time) {
+      setTimeout(printEnd, time)
+    }
+    Count(ms)
+
+  } else if (mess.includes('jabba remind')) {
+    let sum = sumNumbers(mess);
+    if (isNaN(sum)) {
+      message.channel.send(`U did something wrong ${message.author.username}`)
+      message.channel.send('Example : jabba remind 10')
+      return
+    }
+    let ms = sum * 1000 * 60;
+    if (sum > 60) {
+      message.channel.send('Jabba wont count beyond 60 minutes')
+      return
+    }
+    message.channel.send(`jabba counting down from ${sum} minutes `)
+    function printEnd() {
+      message.channel.send(`${sum} minutes have passed.`)
+      console.log(`Jabba finished counting ${sum} minute`)
+    }
+    function Count(time) {
+      setTimeout(printEnd, time)
+    }
+    Count(ms)
+
   }
 })
 
@@ -477,13 +548,13 @@ client.on('messageCreate', message => {
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
       let random = Math.floor(Math.random() * laugh.length);
-    message.channel.send(laugh[random]);
+      message.channel.send(laugh[random]);
       return
     }
     if (!args[0]) {
       message.channel.send('jabba u dumbass')
       let random = Math.floor(Math.random() * laugh.length);
-    message.channel.send(laugh[random]);
+      message.channel.send(laugh[random]);
       return
     }
     message.channel.send('jabba bout to play a song')
@@ -501,13 +572,13 @@ client.on('messageCreate', message => {
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
       let random = Math.floor(Math.random() * laugh.length);
-    message.channel.send(laugh[random]);
+      message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
       let random = Math.floor(Math.random() * laugh.length);
-    message.channel.send(laugh[random]);
+      message.channel.send(laugh[random]);
       return
     }
     distube.stop(message)
@@ -521,13 +592,13 @@ client.on('messageCreate', message => {
     if (!message.member.voice.channel) {
       message.channel.send('jabba u dumb')
       let random = Math.floor(Math.random() * laugh.length);
-    message.channel.send(laugh[random]);
+      message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
       message.channel.send('jabba u dumb dumb')
       let random = Math.floor(Math.random() * laugh.length);
-    message.channel.send(laugh[random]);
+      message.channel.send(laugh[random]);
       return
     }
     distube.stop(message)
@@ -543,7 +614,7 @@ client.on('messageCreate', message => {
     if (isNaN(args[0])) {
       message.channel.send('jabba u dumbling')
       let random = Math.floor(Math.random() * laugh.length);
-    message.channel.send(laugh[random]);
+      message.channel.send(laugh[random]);
       return
     }
     distube.setVolume(message, Number(args[0]));
@@ -641,18 +712,112 @@ client.on('messageCreate', message => {
 
 })
 
+// One two three game
+let list123 = ['✋', '👊', ':v:']
+let botChoice = list123[Math.floor(Math.random() * list123.length)];
+client.on('messageCreate', (message) => {
+  let mes: string = message.content.toLowerCase()
+  let mess: string = removeVN(mes)
+  if (message.author.id === "939491082717249558") return;
+  if (mess.includes('✋')) {
+    let botChoice = list123[Math.floor(Math.random() * list123.length)];
+    message.channel.send(botChoice)
+  }
+  if (mess.includes('👊')) {
+    let botChoice = list123[Math.floor(Math.random() * list123.length)];
+    message.channel.send(botChoice)
+  }
+  if (mess.includes('✌')) {
+    let botChoice = list123[Math.floor(Math.random() * list123.length)];
+    message.channel.send(botChoice)
+  }
+  
+})
 
 
-const getBtcData = async () => {
-  fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD')
- .then(response => response.json())
- .then(data => {
-   console.log(data);
-   
-   
- });
- 
-}
+//Jabba say random sentences
+const { sentence } = require('txtgen/dist/cjs/txtgen.js')
+
+client.on('messageCreate', (message) =>{
+  let mes: string = message.content.toLowerCase()
+  let mess: string = removeVN(mes)
+  if (message.author.id === "939491082717249558") return;
+  if (mess.includes('fact')||mess.includes('jabba say')){
+    while (true){
+      let a = sentence()
+      if (!a.includes('However')){
+          message.channel.send(a)
+          break;
+      }
+  }
+  }
+})
+
+
+
+
+
+//Get weather data
+
+client.on('messageCreate', (message) =>{
+  let mes: string = message.content.toLowerCase()
+  let mess: string = removeVN(mes)
+  if (message.author.id === "939491082717249558") return;
+  if (mess.includes('jabba weather in ')){
+    let er = StringSum(mess)
+    let daysX = mess.replace(/[^0-9]/g, '')
+    let days :number = +daysX
+    if (er === 0){
+      message.channel.send(`Incorrect syntax. \nSample: jabba weather in 2 hanoi. \nOr: jabba weather hanoi`)
+      return
+    }
+    if ( days < 0 || days > 7){
+      message.channel.send(`The number of days can't be less than 1 or greater than 8`)
+      message.channel.send(`Do "jabba weather hanoi" for today's weather`)
+      return
+    }
+    let region = mess.replace('jabba weather in','').replace(/[0-9]/g, '').replace('  ','')
+    
+    message.channel.send(`Getting weather data for ${region} in the next ${days} day(s)`)
+    const WeatherData = async () => {
+      fetch(`https://weatherdbi.herokuapp.com/data/weather/${region}`)
+        .then(response => response.json())
+        .then(data => {
+          let regionData = data.region
+          let daytime = data.next_days[days].day
+          let maxTemp = data.next_days[days].max_temp.c
+          let minTemp = data.next_days[days].min_temp.c
+          let comment = data.next_days[days].comment
+          message.channel.send(`Region: ${regionData}. \nDay: ${daytime}. \nMax Temp: ${maxTemp} °C. \nMin Temp: ${minTemp} °C. \nWeather: ${comment}`)
+
+          
+        });
+    }
+  WeatherData()
+  return
+  }
+  if (mess.includes('jabba weather')){
+    let region = mess.replace('jabba weather ','')
+    const WeatherData = async () => {
+      fetch(`https://weatherdbi.herokuapp.com/data/weather/${region}`)
+        .then(response => response.json())
+        .then(data => {
+          let regionData = data.region
+          let dayhour = data.currentConditions.dayhour
+          let Temp = data.currentConditions.temp.c
+          let humidity = data.currentConditions.humidity
+          let weather = data.currentConditions.comment
+          let precip = data.currentConditions.precip
+          message.channel.send(`Region: ${regionData}. \nDayhour: ${dayhour}. \nCurrent Temp: ${Temp} °C. \nChance of rain: ${precip} \nHumidity: ${humidity}. \nWeather: ${weather}`)
+
+          
+        });
+    }
+  WeatherData()
+  }
+
+})
+
 
 
 //                      weird                  //

@@ -22,7 +22,8 @@
     "imagesize": "^1.0.0",
     "libsodium-wrappers": "^0.7.9",
     "nodemon": "^2.0.15",
-    "probe-image-size": "^7.2.3"
+    "probe-image-size": "^7.2.3",
+    "txtgen": "^3.0.1"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.13"
