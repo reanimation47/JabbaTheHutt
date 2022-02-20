@@ -712,7 +712,108 @@ client.on('messageCreate', message => {
 
 })
 
+//Connect to Google Sheets for Database
+
+const {google} = require("googleapis")
+const auth = new google.auth.GoogleAuth({
+  keyFile: "credentials.json",
+  scopes: "https://www.googleapis.com/auth/spreadsheets",
+})
+const getSpreadsheet = async(Sheetname) =>{
+  const client = await auth.getClient
+
+  const googleSheets = google.sheets({version: "v4",auth: client});
+
+  const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
+  
+  const getRows = await googleSheets.spreadsheets.values.get({
+      auth,
+      spreadsheetId,
+      range: Sheetname,
+  })
+  return getRows
+
+}
+
+const updateRows = async(x,y,a,b,c) =>{
+    
+  const client = await auth.getClient
+
+  const googleSheets = google.sheets({version: "v4",auth: client});
+
+  const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
+
+  await googleSheets.spreadsheets.values.update({
+      auth,
+      spreadsheetId,
+      range: `Sheet1!A${x}:C${y}`,
+      valueInputOption: "USER_ENTERED",
+      resource : {
+          values: [
+              [a,b,c],
+          ]
+      }
+  })
+
+}
+
+const updateSingleRow = async(name,x,a) =>{
+    
+  const client = await auth.getClient
+
+  const googleSheets = google.sheets({version: "v4",auth: client});
+
+  const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
+
+  await googleSheets.spreadsheets.values.update({
+      auth,
+      spreadsheetId,
+      range: `${name}!${x}`,
+      valueInputOption: "USER_ENTERED",
+      resource : {
+          values: [
+              [a],
+          ]
+      }
+  })
+
+}
+
+const addRows = async(name,x,y,a,b,c) =>{
+    
+  const client = await auth.getClient
+
+  const googleSheets = google.sheets({version: "v4",auth: client});
+
+  const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
+
+  await googleSheets.spreadsheets.values.append({
+      auth,
+      spreadsheetId,
+      range: `${name}!A${x}:C${y}`,
+      valueInputOption: "USER_ENTERED",
+      resource : {
+          values: [
+              [a,b,c],
+          ]
+      }
+  })
+
+}
+
+
+
+
 // One two three game
+
+const drawEmotes = ['😄','😅','🙃','🧐']
+const winEmotes = ['😑','😶','😒','🙄','😬','🤢','🤧','😰']
+const loseEmotes = ['🤡','🤭','😎']
+
+function getRandom(list){
+  return list[Math.floor(Math.random() * list.length)]
+}
+
 let list123 = ['✋', '👊', ':v:']
 let botChoice = list123[Math.floor(Math.random() * list123.length)];
 client.on('messageCreate', (message) => {
@@ -720,18 +821,254 @@ client.on('messageCreate', (message) => {
   let mess: string = removeVN(mes)
   if (message.author.id === "939491082717249558") return;
   if (mess.includes('✋')) {
+    const userID = message.author.id
     let botChoice = list123[Math.floor(Math.random() * list123.length)];
     message.channel.send(botChoice)
+    // If jabba draws
+    if (botChoice == '✋') {
+      message.channel.send(getRandom(drawEmotes)+getRandom(drawEmotes))
+    }
+    //If jabba loses
+    if (botChoice == '👊'){
+      message.channel.send(getRandom(winEmotes)+getRandom(winEmotes))
+      getSpreadsheet('OneTwoThree').then((sheet) =>{
+        const len = sheet.data.values.length
+
+        //Check if user already exists
+        let i = 0
+        let check = false
+        let index
+        while (i < len){
+          if (sheet.data.values[i][0] == message.author.id){
+            check = true
+            index = i
+          }
+          i++
+        }
+        index = +index
+        //If user exists
+        if ( check === true){
+          let wins = sheet.data.values[index][1]
+          wins = +wins + 1
+          updateSingleRow('OneTwoThree',`B${index+1}`,wins)
+        }
+        if ( check === false){
+          addRows('OneTwoThree',len+1,len+1,userID,1,0)
+        }
+      })
+    }
+
+    
+    //If jabba wins
+    if (botChoice == ':v:'){
+      message.channel.send(getRandom(loseEmotes)+getRandom(loseEmotes))
+      getSpreadsheet('OneTwoThree').then((sheet) =>{
+        const len = sheet.data.values.length
+
+        //Check if user already exists
+        let i = 0
+        let check = false
+        let index
+        while (i < len){
+          if (sheet.data.values[i][0] == message.author.id){
+            check = true
+            index = i
+          }
+          i++
+        }
+        index = +index
+        //If user exists
+        if ( check === true){
+          let loses = sheet.data.values[index][2]
+          loses = +loses + 1
+          updateSingleRow('OneTwoThree',`C${index+1}`,loses)
+        }
+        if ( check === false){
+          addRows('OneTwoThree',len+1,len+1,userID,0,1)
+        }
+      })
+    }
+
   }
+
+
   if (mess.includes('👊')) {
+    const userID = message.author.id
     let botChoice = list123[Math.floor(Math.random() * list123.length)];
     message.channel.send(botChoice)
+    // If jabba draws
+    if (botChoice == '👊') {
+      message.channel.send(getRandom(drawEmotes)+getRandom(drawEmotes))
+    }
+    //If jabba loses
+    if (botChoice == ':v:'){
+      message.channel.send(getRandom(winEmotes)+getRandom(winEmotes))
+      getSpreadsheet('OneTwoThree').then((sheet) =>{
+        const len = sheet.data.values.length
+
+        //Check if user already exists
+        let i = 0
+        let check = false
+        let index
+        while (i < len){
+          if (sheet.data.values[i][0] == message.author.id){
+            check = true
+            index = i
+          }
+          i++
+        }
+        index = +index
+        //If user exists
+        if ( check === true){
+          let wins = sheet.data.values[index][1]
+          wins = +wins + 1
+          updateSingleRow('OneTwoThree',`B${index+1}`,wins)
+        }
+        if ( check === false){
+          addRows('OneTwoThree',len+1,len+1,userID,1,0)
+        }
+      })
+    }
+
+    
+    //If jabba wins
+    if (botChoice == '✋'){
+      message.channel.send(getRandom(loseEmotes)+getRandom(loseEmotes))
+      getSpreadsheet('OneTwoThree').then((sheet) =>{
+        const len = sheet.data.values.length
+
+        //Check if user already exists
+        let i = 0
+        let check = false
+        let index
+        while (i < len){
+          if (sheet.data.values[i][0] == message.author.id){
+            check = true
+            index = i
+          }
+          i++
+        }
+        index = +index
+        //If user exists
+        if ( check === true){
+          let loses = sheet.data.values[index][2]
+          loses = +loses + 1
+          updateSingleRow('OneTwoThree',`C${index+1}`,loses)
+        }
+        if ( check === false){
+          addRows('OneTwoThree',len+1,len+1,userID,0,1)
+        }
+      })
+    }
+
   }
-  if (mess.includes('✌')) {
+  if (mess.includes('✌️')) {
+    const userID = message.author.id
     let botChoice = list123[Math.floor(Math.random() * list123.length)];
     message.channel.send(botChoice)
+    // If jabba draws
+    if (botChoice == ':v:') {
+      message.channel.send(getRandom(drawEmotes)+getRandom(drawEmotes))
+    }
+    //If jabba loses
+    if (botChoice == '✋'){
+      message.channel.send(getRandom(winEmotes)+getRandom(winEmotes))
+      getSpreadsheet('OneTwoThree').then((sheet) =>{
+        const len = sheet.data.values.length
+
+        //Check if user already exists
+        let i = 0
+        let check = false
+        let index
+        while (i < len){
+          if (sheet.data.values[i][0] == message.author.id){
+            check = true
+            index = i
+          }
+          i++
+        }
+        index = +index
+        //If user exists
+        if ( check === true){
+          let wins = sheet.data.values[index][1]
+          wins = +wins + 1
+          updateSingleRow('OneTwoThree',`B${index+1}`,wins)
+        }
+        if ( check === false){
+          addRows('OneTwoThree',len+1,len+1,userID,1,0)
+        }
+      })
+    }
+
+    
+    //If jabba wins
+    if (botChoice == '👊'){
+      message.channel.send(getRandom(loseEmotes)+getRandom(loseEmotes))
+      getSpreadsheet('OneTwoThree').then((sheet) =>{
+        const len = sheet.data.values.length
+
+        //Check if user already exists
+        let i = 0
+        let check = false
+        let index
+        while (i < len){
+          if (sheet.data.values[i][0] == message.author.id){
+            check = true
+            index = i
+          }
+          i++
+        }
+        index = +index
+        //If user exists
+        if ( check === true){
+          let loses = sheet.data.values[index][2]
+          loses = +loses + 1
+          updateSingleRow('OneTwoThree',`C${index+1}`,loses)
+        }
+        if ( check === false){
+          addRows('OneTwoThree',len+1,len+1,userID,0,1)
+        }
+      })
+    }
+
   }
   
+})
+
+// Check OneTwoThree stats
+client.on('messageCreate', (message) =>{
+  let mes: string = message.content.toLowerCase()
+  let mess: string = removeVN(mes)
+  if (message.author.id === "939491082717249558") return;
+  if (mess == 'jabba my stats'){
+    const userID = message.author.id
+    getSpreadsheet('OneTwoThree').then((sheet)=>{
+      const len = sheet.data.values.length
+      //Check if user already exists
+      let i = 0
+      let check = false
+      let index
+      while (i < len){
+        if (sheet.data.values[i][0] == message.author.id){
+          check = true
+          index = i
+        }
+        i++
+      }
+      index = +index
+
+      //If user already exists
+      if ( check === true){
+        let wins = +sheet.data.values[index][1]
+        let loses = +sheet.data.values[index][2]
+        let winrate = (wins/(wins+loses)*100).toFixed(2)
+        message.channel.send(`<@${userID}>'s stats: \nWins: ${wins}. \nLoses: ${loses}. \nWinrate: ${winrate}%.`)
+      }
+      if (check === false){
+        message.channel.send(`Jabba's never played with u`)
+      }
+    })
+  }
 })
 
 
@@ -817,6 +1154,84 @@ client.on('messageCreate', (message) =>{
   }
 
 })
+
+
+
+
+
+
+//Guess genders and nationalities by name
+
+client.on('messageCreate', (message) =>{
+  let mes: string = message.content.toLowerCase()
+  let mess: string = removeVN(mes)
+  if (message.author.id === "939491082717249558") return;
+  if (mess.includes('jabba guess')){
+    if (mess == 'jabba guess'){
+      return
+    }
+    let a = mess.replace('jabba guess ', '')
+
+    const guessData = async () => {
+      fetch(`https://api.genderize.io/?name=${a}`)
+        .then(response => response.json())
+        .then(data => {
+          if ( data.gender == null){
+            message.channel.send(`Jabba cant guess dis`)
+            return
+          }
+          if ( data.gender == 'male'){
+            message.channel.send(`🤔 Jabba is ${data.probability*100}% sure "${data.name}" is a boy name 👦`)
+            return
+          }
+          if ( data.gender == 'female'){
+            message.channel.send(`🤔 Jabba is ${data.probability*100}% sure "${data.name}" is a girl name 👧`)
+            return
+          }
+
+
+
+         
+          
+        });
+    }
+    const GuessNat = async () => {
+      fetch(`https://api.nationalize.io/?name=${a}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.country.length == 0){
+            message.channel.send(`No nationality data for ${a}`)
+            return
+          }
+          message.channel.send(`🏴 Jabba also is ${data.country[0].probability.toFixed(2)*100}% certain "${a}" is a ${data.country[0].country_id} name 🏳` )
+         
+          
+        });
+    }
+    guessData().then(()=>{
+      GuessNat()
+    })
+    
+  }
+})
+
+
+
+
+
+
+//
+
+
+
+
+
+
+
+
+
+
+
 
 
 
