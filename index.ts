@@ -10,6 +10,7 @@ const client = new DiscordJS.Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.DIRECT_MESSAGES,
   ]
 });
 // const distube = new DisTube.default(client)
@@ -305,10 +306,10 @@ client.on('messageCreate', (message) => {
     return
 
   } else if (mess.includes('banh') && mess.includes('chui')) {
-    message.channel.send('dm banh')
+    message.channel.send(`dm banh ${getRandom(loseEmotes)}`)
 
   } else if (mess.includes('tu') && mess.includes('ra')) {
-    message.channel.send(`dm bảnh ngu ${days} ɴɢàʏ ${hours} giờ ɴữᴀ ʀᴀ ᴛù`)
+    message.channel.send(`dm bảnh ngu ${days} ɴɢàʏ ${hours} giờ ɴữᴀ ʀᴀ ᴛù ${getRandom(loseEmotes)}`)
 
   } else if (mess.includes('sad')) {
     message.channel.send(`https://tenor.com/view/dont-cry-dont-worry-dont-be-sad-there-there-friends-gif-10717838`)
@@ -331,12 +332,12 @@ client.on('messageCreate', (message) => {
     message.channel.send(message.author.id);
 
   } else if (mess.includes('xin loi')) {
-    message.channel.send("Biết lỗi là ngoan đó em");
+    message.channel.send(`Biết lỗi là ngoan đó em ${getRandom(randomEmotes)}`);
 
   } else if (mess.includes('voi') || mess.includes('them')) {
     let sum1 = sumNumbers(mess)
     if (!isNaN(sum1)){
-      message.channel.send(`làaa ${sum1}`);
+      message.channel.send(`làaa ${sum1} ${getRandom(randomEmotes)}`);
     }
     
 
@@ -357,7 +358,7 @@ client.on('messageCreate', (message) => {
         .then(response => response.json())
         .then(data => {
           console.log(data);
-          message.channel.send(`bitcoin price rn is ${data.USD}$`)
+          message.channel.send(`bitcoin price rn is ${data.USD}$ ${getRandom(randomEmotes)}`)
         });
     }
     getBtcData()
@@ -367,25 +368,25 @@ client.on('messageCreate', (message) => {
         .then(response => response.json())
         .then(data => {
           console.log(data);
-          message.channel.send(`ethereum price rn is ${data.USD}$`)
+          message.channel.send(`ethereum price rn is ${data.USD}$ ${getRandom(randomEmotes)}`)
         });
     }
     getBtcData()
   } else if (mess.includes('jabba count')) {
     let sum = sumNumbers(mess);
     if (isNaN(sum)) {
-      message.channel.send(`U did something wrong ${message.author.username}`)
+      message.channel.send(`U did something wrong ${message.author.username} ${getRandom(loseEmotes)}`)
       message.channel.send('Example : jabba count 10')
       return
     }
     let ms = sum * 1000;
     if (sum > 3600) {
-      message.channel.send('Jabba dont wanna count beyond 3600 seconds')
+      message.channel.send(`Jabba dont wanna count beyond 3600 seconds ${getRandom(randomEmotes)}`)
       return
     }
-    message.channel.send(`jabba counting down from ${sum} seconds `)
+    message.channel.send(`⏱ jabba counting down from ${sum} seconds ${getRandom(randomEmotes)}`)
     function printEnd() {
-      message.channel.send(`${sum} seconds have passed.`)
+      message.channel.send(`⏰ ${sum} seconds have passed. ${getRandom(randomEmotes)}`)
       console.log(`Jabba finished counting ${sum} seconds`)
     }
     function Count(time) {
@@ -397,19 +398,19 @@ client.on('messageCreate', (message) => {
     let sum = sumNumbers(mess);
     let work = mess.substring(19, mess.length - 4)
     if (isNaN(sum)) {
-      message.channel.send(`U did something wrong ${message.author.username}`)
+      message.channel.send(`U did something wrong ${message.author.username} ${getRandom(loseEmotes)}`)
       message.channel.send('Proper syntax : jabba remind me to study in 5')
       return
     }
     let ms = sum * 1000 * 60;
     if (sum > 60) {
-      message.channel.send('Jabba dont wanna count beyond 60 minutes')
+      message.channel.send(`Jabba dont wanna count beyond 60 minutes ${getRandom(randomEmotes)}`)
       return
     }
-    message.channel.send(`jabba will remind u to ${work}in ${sum} minutes  `)
+    message.channel.send(`⏲ jabba will remind u to ${work}in ${sum} minutes ${getRandom(randomEmotes)} `)
     function printEnd() {
-      message.channel.send(`${sum} minutes have passed.`)
-      message.channel.send(`Hey ${message.author.username} its time to ${work}`)
+      message.channel.send(`⏰ ${sum} minutes have passed. ${getRandom(randomEmotes)}`)
+      message.channel.send(`Hey ${message.author.username} its time to ${work} ${getRandom(randomEmotes)}`)
       console.log(`Jabba finished counting ${sum} minute`)
     }
     function Count(time) {
@@ -420,18 +421,18 @@ client.on('messageCreate', (message) => {
   } else if (mess.includes('jabba remind')) {
     let sum = sumNumbers(mess);
     if (isNaN(sum)) {
-      message.channel.send(`U did something wrong ${message.author.username}`)
+      message.channel.send(`U did something wrong ${message.author.username} ${getRandom(loseEmotes)}`)
       message.channel.send('Example : jabba remind 10')
       return
     }
     let ms = sum * 1000 * 60;
     if (sum > 60) {
-      message.channel.send('Jabba wont count beyond 60 minutes')
+      message.channel.send(`Jabba wont count beyond 60 minutes ${getRandom(randomEmotes)}`)
       return
     }
-    message.channel.send(`jabba counting down from ${sum} minutes `)
+    message.channel.send(`⏱ jabba counting down from ${sum} minutes ${getRandom(randomEmotes)}`)
     function printEnd() {
-      message.channel.send(`${sum} minutes have passed.`)
+      message.channel.send(`⏰ ${sum} minutes have passed. ${getRandom(randomEmotes)}`)
       console.log(`Jabba finished counting ${sum} minute`)
     }
     function Count(time) {
@@ -502,37 +503,37 @@ const status = queue =>
 distube
   .on("playSong", (queue, song) =>
     queue.textChannel.send(
-      `jabba playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user.tag}\n${status(queue)}`
+      `🎵 jabba playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user.tag} ${getRandom(randomEmotes)} \n${status(queue)}🎶`
     )
   )
   .on("addSong", (queue, song) =>
-    queue.textChannel.send(`jabba added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user.tag}`)
+    queue.textChannel.send(`jabba added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user.tag} ${getRandom(randomEmotes)}`)
   )
   .on("addList", (queue, playlist) =>
     queue.textChannel.send(
-      `jabba added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to queue\n${status(queue)}`
+      `jabba added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to queue\n${status(queue)} ${getRandom(randomEmotes)}`
     )
   )
   .on("error", (textChannel, e) => {
     console.error(e)
     textChannel.send(`An error encountered`)
   })
-  .on("finish", queue => queue.textChannel.send("jabba done"))
-  .on("finishSong", queue => queue.textChannel.send("jabba done"))
-  .on("disconnect", queue => queue.textChannel.send("jabba gone"))
-  .on("empty", queue => queue.textChannel.send("jabba u dumb"))
+  .on("finish", queue => queue.textChannel.send(`jabba done ${getRandom(randomEmotes)}`))
+  .on("finishSong", queue => queue.textChannel.send(`jabba done ${getRandom(randomEmotes)}`))
+  .on("disconnect", queue => queue.textChannel.send(`jabba gone ${getRandom(randomEmotes)}`))
+  .on("empty", queue => queue.textChannel.send(`jabba u dumb ${getRandom(randomEmotes)}`))
   // DisTubeOptions.searchSongs > 1
   .on("searchResult", (message, result) => {
     let i = 0
     message.channel.send(
       `**Choose an option from below**\n${result
         .map(song => `**${++i}**. ${song.name} - \`${song.formattedDuration}\``)
-        .join("\n")}\n*Enter anything else or wait 30 seconds to cancel*`
+        .join("\n")}\n*Enter anything else or wait 30 seconds to cancel* ${getRandom(randomEmotes)}`
     )
   })
-  .on("searchCancel", message => message.channel.send(`Searching canceled`))
-  .on("searchInvalidAnswer", message => message.channel.send(`Invalid number of result.`))
-  .on("searchNoResult", message => message.channel.send(`No result found!`))
+  .on("searchCancel", message => message.channel.send(`Searching canceled ${getRandom(randomEmotes)}`))
+  .on("searchInvalidAnswer", message => message.channel.send(`Invalid number of result. ${getRandom(randomEmotes)}`))
+  .on("searchNoResult", message => message.channel.send(`No result found! ${getRandom(randomEmotes)}`))
   .on("searchDone", () => { })
 
 // Music
@@ -546,43 +547,43 @@ client.on('messageCreate', message => {
 
 
     if (!message.member.voice.channel) {
-      message.channel.send('jabba u dumb')
+      message.channel.send(`jabba u dumb ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     if (!args[0]) {
-      message.channel.send('jabba u dumbass')
+      message.channel.send(`jabba u dumbass`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
-    message.channel.send('jabba bout to play a song')
+    message.channel.send(`jabba bout to play a song ${getRandom(randomEmotes)}`)
     distube.play(message, args.join(' '))
   }
 
   if (["repeat", "loop"].includes(command)) {
     const mode = distube.setRepeatMode(message)
-    message.channel.send(`jabba set repeat mode to \`${mode ? (mode === 2 ? "All Queue" : "This Song") : "Off"}\``)
+    message.channel.send(`${getRandom(randomEmotes)} jabba set repeat mode to \`${mode ? (mode === 2 ? "All Queue" : "This Song") : "Off"}\``)
   }
 
   if (command === 'stop') {
 
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
-      message.channel.send('jabba u dumb')
+      message.channel.send(`jabba u dumb ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
-      message.channel.send('jabba u dumb dumb')
+      message.channel.send(`jabba u dumb dumb ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     distube.stop(message)
-    message.channel.send("jabba stopped")
+    message.channel.send(`jabba stopped ${getRandom(randomEmotes)}`)
 
   }
 
@@ -590,35 +591,35 @@ client.on('messageCreate', message => {
 
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
-      message.channel.send('jabba u dumb')
+      message.channel.send(`jabba u dumb ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
-      message.channel.send('jabba u dumb dumb')
+      message.channel.send(`jabba u dumb dumb ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     distube.stop(message)
-    message.channel.send("jabba stopped")
+    message.channel.send(`jabba stopped ${getRandom(randomEmotes)}`)
 
   }
 
   if ([`3d`, `bassboost`, `echo`, `karaoke`, `nightcore`, `vaporwave`].includes(command)) {
     const filter = distube.setFilter(message, command)
-    message.channel.send(`Current queue filter: ${filter.join(", ") || "Off"}`)
+    message.channel.send(`Current queue filter: ${filter.join(", ") || "Off"} ${getRandom(randomEmotes)} `)
   }
   if (command == "volume") {
     if (isNaN(args[0])) {
-      message.channel.send('jabba u dumbling')
+      message.channel.send(`jabba u dumbling ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     distube.setVolume(message, Number(args[0]));
-    message.channel.send(`jabba changed volume to ${args[0]}%`)
+    message.channel.send(`jabba changed volume to ${args[0]}% ${getRandom(randomEmotes)}`)
   }
 
 
@@ -626,19 +627,19 @@ client.on('messageCreate', message => {
   if (command === "leave") {
     const bot = message.guild.members.cache.get(client.user.id);
     if (!message.member.voice.channel) {
-      message.channel.send('jabba u dumb')
+      message.channel.send(`jabba u dumb ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     if (bot.voice.channel !== message.member.voice.channel) {
-      message.channel.send('jabba u dumb dumb')
+      message.channel.send(`jabba u dumb dumb ${getRandom(randomEmotes)}`)
       let random = Math.floor(Math.random() * laugh.length);
       message.channel.send(laugh[random]);
       return
     }
     distube.voices.get(message)?.leave()
-    message.channel.send("jabba left")
+    message.channel.send(`jabba left ${getRandom(randomEmotes)}`)
   }
   if (command === "resume") {
     const bot = message.guild.members.cache.get(client.user.id);
@@ -696,7 +697,7 @@ client.on('messageCreate', message => {
   if (command === "queue") {
     const queue = distube.getQueue(message)
     if (!queue) {
-      message.channel.send("jabba no playing rn")
+      message.channel.send(`jabba no playing rn`)
     } else {
       message.channel.send(
         `Current queue:\n${queue.songs
@@ -803,11 +804,10 @@ const addRows = async(name,x,y,a,b,c) =>{
 
 
 
-
 // One two three game
-
+const randomEmotes = ['😄','😅','🙃','🧐','😑','😶','😒','🙄','😬','🤢','🤧','😰','🤮','😭','🖕','🤡','🤭','😎','🥳','🤓','🥰','😙','🤪','😷']
 const drawEmotes = ['😄','😅','🙃','🧐']
-const winEmotes = ['😑','😶','😒','🙄','😬','🤢','🤧','😰']
+const winEmotes = ['😑','😶','😒','🙄','😬','🤢','🤧','😰','🤮','😭','🖕']
 const loseEmotes = ['🤡','🤭','😎']
 
 function getRandom(list){
@@ -820,7 +820,7 @@ client.on('messageCreate', (message) => {
   let mes: string = message.content.toLowerCase()
   let mess: string = removeVN(mes)
   if (message.author.id === "939491082717249558") return;
-  if (mess.includes('✋')) {
+  if (mess.includes('✋') || (mess.includes('🤚')) || (mess.includes('🖐')))  {
     const userID = message.author.id
     let botChoice = list123[Math.floor(Math.random() * list123.length)];
     message.channel.send(botChoice)
@@ -892,7 +892,7 @@ client.on('messageCreate', (message) => {
   }
 
 
-  if (mess.includes('👊')) {
+  if (mess.includes('👊') || mess.includes('✊') || mess.includes('🤛') || mess.includes('🤜')) {
     const userID = message.author.id
     let botChoice = list123[Math.floor(Math.random() * list123.length)];
     message.channel.send(botChoice)
@@ -962,7 +962,7 @@ client.on('messageCreate', (message) => {
     }
 
   }
-  if (mess.includes('✌️')) {
+  if (mess.includes('✌️') ) {
     const userID = message.author.id
     let botChoice = list123[Math.floor(Math.random() * list123.length)];
     message.channel.send(botChoice)
@@ -1040,6 +1040,7 @@ client.on('messageCreate', (message) =>{
   let mes: string = message.content.toLowerCase()
   let mess: string = removeVN(mes)
   if (message.author.id === "939491082717249558") return;
+  //Check user's stats
   if (mess == 'jabba my stats'){
     const userID = message.author.id
     getSpreadsheet('OneTwoThree').then((sheet)=>{
@@ -1062,11 +1063,30 @@ client.on('messageCreate', (message) =>{
         let wins = +sheet.data.values[index][1]
         let loses = +sheet.data.values[index][2]
         let winrate = (wins/(wins+loses)*100).toFixed(2)
-        message.channel.send(`<@${userID}>'s stats: \nWins: ${wins}. \nLoses: ${loses}. \nWinrate: ${winrate}%.`)
+        message.channel.send(`<@${userID}>'s stats: \nWins: ${wins}. \nLoses: ${loses}. \nWinrate: ${winrate}%. ${getRandom(randomEmotes)}`)
       }
       if (check === false){
-        message.channel.send(`Jabba's never played with u`)
+        message.channel.send(`Jabba's never played with u ${getRandom(loseEmotes)}`)
       }
+    })
+  }
+  if (mess == 'jabba top 123'){
+    getSpreadsheet('OneTwoThree').then((sheet)=>{
+      const len = sheet.data.values.length
+      message.channel.send(`Top OneTwoThree Wins: ${getRandom(randomEmotes)}`)
+      let i = 1
+      while (i < len){
+
+        let user = `<@${sheet.data.values[i][4]}>`
+        
+        let wins = +sheet.data.values[i][5]
+        let loses = +sheet.data.values[i][6]
+        let winrate = (wins/(wins+loses)*100).toFixed(2)
+        message.channel.send(`${i}.${user} - Wins: ${wins} - Winrate: ${winrate}% ${getRandom(randomEmotes)}`)
+        i++
+      }
+
+     
     })
   }
 })
@@ -1105,12 +1125,12 @@ client.on('messageCreate', (message) =>{
     let daysX = mess.replace(/[^0-9]/g, '')
     let days :number = +daysX
     if (er === 0){
-      message.channel.send(`Incorrect syntax. \nSample: jabba weather in 2 hanoi. \nOr: jabba weather hanoi`)
+      message.channel.send(`Incorrect syntax. ${getRandom(randomEmotes)} \nSample: jabba weather in 2 hanoi. \nOr: jabba weather hanoi`)
       return
     }
     if ( days < 0 || days > 7){
-      message.channel.send(`The number of days can't be less than 1 or greater than 8`)
-      message.channel.send(`Do "jabba weather hanoi" for today's weather`)
+      message.channel.send(`The number of days can't be less than 1 or greater than 8 ${getRandom(loseEmotes)}`)
+      message.channel.send(`Do "jabba weather hanoi" for today's weather ${getRandom(randomEmotes)}`)
       return
     }
     let region = mess.replace('jabba weather in','').replace(/[0-9]/g, '').replace('  ','')
@@ -1125,7 +1145,7 @@ client.on('messageCreate', (message) =>{
           let maxTemp = data.next_days[days].max_temp.c
           let minTemp = data.next_days[days].min_temp.c
           let comment = data.next_days[days].comment
-          message.channel.send(`Region: ${regionData}. \nDay: ${daytime}. \nMax Temp: ${maxTemp} °C. \nMin Temp: ${minTemp} °C. \nWeather: ${comment}`)
+          message.channel.send(`Region: ${regionData}. \nDay: ${daytime}. \nMax Temp: ${maxTemp} °C. ${getRandom(randomEmotes)} \nMin Temp: ${minTemp} °C. \nWeather: ${comment} ${getRandom(randomEmotes)}`)
 
           
         });
@@ -1139,13 +1159,14 @@ client.on('messageCreate', (message) =>{
       fetch(`https://weatherdbi.herokuapp.com/data/weather/${region}`)
         .then(response => response.json())
         .then(data => {
+          let wind = data.currentConditions.wind.km
           let regionData = data.region
           let dayhour = data.currentConditions.dayhour
           let Temp = data.currentConditions.temp.c
           let humidity = data.currentConditions.humidity
           let weather = data.currentConditions.comment
           let precip = data.currentConditions.precip
-          message.channel.send(`Region: ${regionData}. \nDayhour: ${dayhour}. \nCurrent Temp: ${Temp} °C. \nChance of rain: ${precip} \nHumidity: ${humidity}. \nWeather: ${weather}`)
+          message.channel.send(`Region: ${regionData}. \nDayhour: ${dayhour}. \nCurrent Temp: ${Temp} °C. ${getRandom(randomEmotes)} \nChance of rain: ${precip} \nHumidity: ${humidity}. \nWind: ${wind} km/h \nWeather: ${weather} ${getRandom(randomEmotes)}`)
 
           
         });
@@ -1177,15 +1198,15 @@ client.on('messageCreate', (message) =>{
         .then(response => response.json())
         .then(data => {
           if ( data.gender == null){
-            message.channel.send(`Jabba cant guess dis`)
+            message.channel.send(`Jabba cant guess dis ${getRandom(randomEmotes)} `)
             return
           }
           if ( data.gender == 'male'){
-            message.channel.send(`🤔 Jabba is ${data.probability*100}% sure "${data.name}" is a boy name 👦`)
+            message.channel.send(`${getRandom(randomEmotes)} Jabba is ${data.probability*100}% sure "${data.name}" is a boy name 👦`)
             return
           }
           if ( data.gender == 'female'){
-            message.channel.send(`🤔 Jabba is ${data.probability*100}% sure "${data.name}" is a girl name 👧`)
+            message.channel.send(`${getRandom(randomEmotes)} Jabba is ${data.probability*100}% sure "${data.name}" is a girl name 👧`)
             return
           }
 
@@ -1200,10 +1221,10 @@ client.on('messageCreate', (message) =>{
         .then(response => response.json())
         .then(data => {
           if (data.country.length == 0){
-            message.channel.send(`No nationality data for ${a}`)
+            message.channel.send(`No nationality data for "${a}" ${getRandom(randomEmotes)}`)
             return
           }
-          message.channel.send(`🏴 Jabba also is ${data.country[0].probability.toFixed(2)*100}% certain "${a}" is a ${data.country[0].country_id} name 🏳` )
+          message.channel.send(`${getRandom(randomEmotes)} Jabba also is ${data.country[0].probability.toFixed(2)*100}% certain "${a}" is a ${data.country[0].country_id} name 🏳` )
          
           
         });
@@ -1218,9 +1239,6 @@ client.on('messageCreate', (message) =>{
 
 
 
-
-
-//
 
 
 
