@@ -1182,6 +1182,15 @@ client.on('messageCreate', (message) =>{
 
 
 //Guess genders and nationalities by name
+const CountryNames = require('./names.json')
+function getFlagEmoji(countryCode) {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split('')
+    .map(char =>  127397 + char.charCodeAt());
+  return String.fromCodePoint(...codePoints);
+}
+
 
 client.on('messageCreate', (message) =>{
   let mes: string = message.content.toLowerCase()
@@ -1224,7 +1233,7 @@ client.on('messageCreate', (message) =>{
             message.channel.send(`No nationality data for "${a}" ${getRandom(randomEmotes)}`)
             return
           }
-          message.channel.send(`${getRandom(randomEmotes)} Jabba also is ${data.country[0].probability.toFixed(2)*100}% certain "${a}" is a ${data.country[0].country_id} name 🏳` )
+          message.channel.send(`${getRandom(randomEmotes)} Jabba also is ${data.country[0].probability.toFixed(2)*100}% certain "${a}" is a ${CountryNames[data.country[0].country_id]}${getFlagEmoji(data.country[0].country_id)} name ` )
          
           
         });
