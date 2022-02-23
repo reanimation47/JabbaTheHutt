@@ -1,1 +1,2 @@
-Source code of Jabba ( Discord bot)
+# Source code of Jabba the Hutt
+--------------------------------------------------------
