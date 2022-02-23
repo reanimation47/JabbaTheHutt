@@ -9,7 +9,11 @@ export const client: any = new DiscordJS.Client({
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_VOICE_STATES,
     Intents.FLAGS.DIRECT_MESSAGES,
-  ]
+    Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+  ],
+  partials: [
+    'CHANNEL', // Required to receive DMs
+]
 });
 // const distube = new DisTube.default(client)
 
@@ -147,6 +151,18 @@ client.on('messageCreate', async (message) => {
 	}
 })
 
+//Cursing on DMs
+
+client.on('messageCreate', async (message) => {
+  const command = client.commands.get('cursingDMs')
+  if (!command) return;
+  try {
+		await command.execute(message);
+	} catch (error) {
+		console.error(error);
+		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
+})
 
 client.on("error", () => { 
   client.login(process.env.token) });
