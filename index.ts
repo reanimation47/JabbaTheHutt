@@ -165,6 +165,6 @@ client.on('messageCreate', async (message) => {
 })
 
 client.on("error", () => { 
-  client.login(process.env.token) });
+  client.login(process.env.TOKEN) });
 
 client.login(process.env.TOKEN)
