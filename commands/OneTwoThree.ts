@@ -4,93 +4,11 @@ import { drawEmotes } from "./../lists"
 import { winEmotes } from "./../lists"
 import { loseEmotes } from "./../lists"
 import { randomEmotes } from "./../lists"
+import { getSpreadsheet } from "../databases/GoogleSheets"
+import { updateRows } from "../databases/GoogleSheets"
+import { updateSingleRow } from "../databases/GoogleSheets"
+import { addRows } from "../databases/GoogleSheets"
 
-const { google } = require("googleapis")
-const auth = new google.auth.GoogleAuth({
-    keyFile: "credentials.json",
-    scopes: "https://www.googleapis.com/auth/spreadsheets",
-})
-const getSpreadsheet = async (Sheetname) => {
-    const client = await auth.getClient
-
-    const googleSheets = google.sheets({ version: "v4", auth: client });
-
-    const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
-
-    const getRows = await googleSheets.spreadsheets.values.get({
-        auth,
-        spreadsheetId,
-        range: Sheetname,
-    })
-    return getRows
-
-}
-
-const updateRows = async (x, y, a, b, c) => {
-
-    const client = await auth.getClient
-
-    const googleSheets = google.sheets({ version: "v4", auth: client });
-
-    const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
-
-    await googleSheets.spreadsheets.values.update({
-        auth,
-        spreadsheetId,
-        range: `Sheet1!A${x}:C${y}`,
-        valueInputOption: "USER_ENTERED",
-        resource: {
-            values: [
-                [a, b, c],
-            ]
-        }
-    })
-
-}
-
-const updateSingleRow = async (name, x, a) => {
-
-    const client = await auth.getClient
-
-    const googleSheets = google.sheets({ version: "v4", auth: client });
-
-    const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
-
-    await googleSheets.spreadsheets.values.update({
-        auth,
-        spreadsheetId,
-        range: `${name}!${x}`,
-        valueInputOption: "USER_ENTERED",
-        resource: {
-            values: [
-                [a],
-            ]
-        }
-    })
-
-}
-
-const addRows = async (name, x, y, a, b, c) => {
-
-    const client = await auth.getClient
-
-    const googleSheets = google.sheets({ version: "v4", auth: client });
-
-    const spreadsheetId = '1ykziNQrh49vtgGWaXP3SdwX8zYeRbjoh576opXkjOCI'
-
-    await googleSheets.spreadsheets.values.append({
-        auth,
-        spreadsheetId,
-        range: `${name}!A${x}:C${y}`,
-        valueInputOption: "USER_ENTERED",
-        resource: {
-            values: [
-                [a, b, c],
-            ]
-        }
-    })
-
-}
 
 module.exports = {
     name: 'OneTwoThree',
@@ -358,6 +276,14 @@ module.exports = {
               }
         
         
+            })
+          }
+          if ( mess == 'jabba stats'){
+            await getSpreadsheet('OneTwoThree').then((sheet)=>{
+                let wins = +sheet.data.values[1][8]
+                let loses = +sheet.data.values[1][10]
+                let winrate = (wins / (wins + loses) * 100).toFixed(2)
+                message.channel.send(`Jabba's stats: \nWins: ${wins}. \nLoses: ${loses}. \nWinrate: ${winrate}%. ${getRandom(randomEmotes)}`)
             })
           }
 
