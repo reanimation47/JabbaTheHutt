@@ -8,9 +8,12 @@ export const sexi = ["https://tenor.com/view/leia-jabba-gif-8984830", "https://t
 const faceEmotes = require('../jsons/emojiList.json')
 let randomEmotes = [];
 console.time('okay')
-faceEmotes.forEach(function(obj){
+faceEmotes.some(function(obj){
     if(obj.category == 'Smileys & Emotion'){
         randomEmotes.push(obj.emoji);
+    }
+    if (obj.emoji == '🤡'){
+        return true
     }
     
 })
