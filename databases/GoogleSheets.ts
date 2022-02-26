@@ -5,7 +5,7 @@ export const auth = new google.auth.GoogleAuth({
   keyFile: "credentials.json",
   scopes: "https://www.googleapis.com/auth/spreadsheets",
 })
-export const getSpreadsheet = async (Sheetname) => {
+export const getSpreadsheet = async (Sheetname:string) => {
   const client = await auth.getClient
 
   const googleSheets = google.sheets({ version: "v4", auth: client });
@@ -21,7 +21,7 @@ export const getSpreadsheet = async (Sheetname) => {
 
 }
 
-export const updateRows = async (x, y, a, b, c) => {
+export const update123Rows = async (x:number, y:number, a, b, c) => {
 
   const client = await auth.getClient
 
@@ -43,7 +43,7 @@ export const updateRows = async (x, y, a, b, c) => {
 
 }
 
-export const updateSingleRow = async (name, x, a) => {
+export const updateSingleRow = async (name:string, x:string, a) => {
 
   const client = await auth.getClient
 
@@ -65,7 +65,7 @@ export const updateSingleRow = async (name, x, a) => {
 
 }
 
-export const addRows = async (name, x, y, a, b, c) => {
+export const Add123Rows = async (name:string, x, y, a, b, c) => {
 
   const client = await auth.getClient
 

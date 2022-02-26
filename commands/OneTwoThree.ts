@@ -5,9 +5,8 @@ import { winEmotes } from "./../lists"
 import { loseEmotes } from "./../lists"
 import { randomEmotes } from "./../lists"
 import { getSpreadsheet } from "../databases/GoogleSheets"
-import { updateRows } from "../databases/GoogleSheets"
 import { updateSingleRow } from "../databases/GoogleSheets"
-import { addRows } from "../databases/GoogleSheets"
+import { Add123Rows } from "../databases/GoogleSheets"
 
 
 module.exports = {
@@ -51,7 +50,7 @@ module.exports = {
                         updateSingleRow('OneTwoThree', `B${index + 1}`, wins)
                     }
                     if (check === false) {
-                        addRows('OneTwoThree', len + 1, len + 1, userID, 1, 0)
+                        Add123Rows('OneTwoThree', len + 1, len + 1, userID, 1, 0)
                     }
                 })
             }
@@ -82,7 +81,7 @@ module.exports = {
                         updateSingleRow('OneTwoThree', `C${index + 1}`, loses)
                     }
                     if (check === false) {
-                        addRows('OneTwoThree', len + 1, len + 1, userID, 0, 1)
+                        Add123Rows('OneTwoThree', len + 1, len + 1, userID, 0, 1)
                     }
                 })
             }
@@ -123,7 +122,7 @@ module.exports = {
                         updateSingleRow('OneTwoThree', `B${index + 1}`, wins)
                     }
                     if (check === false) {
-                        addRows('OneTwoThree', len + 1, len + 1, userID, 1, 0)
+                        Add123Rows('OneTwoThree', len + 1, len + 1, userID, 1, 0)
                     }
                 })
             }
@@ -154,7 +153,7 @@ module.exports = {
                         updateSingleRow('OneTwoThree', `C${index + 1}`, loses)
                     }
                     if (check === false) {
-                        addRows('OneTwoThree', len + 1, len + 1, userID, 0, 1)
+                        Add123Rows('OneTwoThree', len + 1, len + 1, userID, 0, 1)
                     }
                 })
             }
@@ -193,7 +192,7 @@ module.exports = {
                         updateSingleRow('OneTwoThree', `B${index + 1}`, wins)
                     }
                     if (check === false) {
-                        addRows('OneTwoThree', len + 1, len + 1, userID, 1, 0)
+                        Add123Rows('OneTwoThree', len + 1, len + 1, userID, 1, 0)
                     }
                 })
             }
@@ -224,7 +223,7 @@ module.exports = {
                         updateSingleRow('OneTwoThree', `C${index + 1}`, loses)
                     }
                     if (check === false) {
-                        addRows('OneTwoThree', len + 1, len + 1, userID, 0, 1)
+                        Add123Rows('OneTwoThree', len + 1, len + 1, userID, 0, 1)
                     }
                 })
             }
