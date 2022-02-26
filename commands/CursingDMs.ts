@@ -1,7 +1,7 @@
 import { removeVN } from './../functions/removeVN'
 import { getRandom } from './../functions/getRandomFromArray'
-import { randomEmotes } from "./../lists"
-import { loseEmotes } from "./../lists"
+import { randomEmotes } from "../jsons/lists"
+import { loseEmotes } from "../jsons/lists"
 
 let badwords = require('badwords/array');
 const range = ['10', '11', '12', '9', '8']

@@ -1,7 +1,7 @@
 import { getRandom } from "../functions/getRandomFromArray"
 import { removeVN } from "../functions/removeVN"
-import { loseEmotes } from "./../lists"
-import { randomEmotes } from "./../lists"
+import { loseEmotes } from "../jsons/lists"
+import { randomEmotes } from "../jsons/lists"
 
 import { StringSum } from "../functions/StringSum"
 const fetch = require('node-fetch')

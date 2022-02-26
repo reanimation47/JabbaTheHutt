@@ -1,6 +1,6 @@
 import { getRandom } from "../functions/getRandomFromArray"
 import { removeVN } from "../functions/removeVN"
-import { randomEmotes } from "./../lists"
+import { randomEmotes } from "../jsons/lists"
 const fetch = require('node-fetch')
 
 module.exports = {

@@ -1,11 +1,10 @@
 import { getRandom } from "../functions/getRandomFromArray"
 import { removeVN } from "../functions/removeVN"
-import { loseEmotes } from "./../lists"
-import { randomEmotes } from "./../lists"
+import { randomEmotes } from "../jsons/lists"
 const fetch = require('node-fetch')
 
 import { getFlagEmoji } from "../functions/getFlagEmoji"
-const CountryNames = require('./../names.json')
+const CountryNames = require('../jsons/names.json')
 module.exports = {
     name: 'GuessGen',
     description: 'Guess genders and nationalities by name',

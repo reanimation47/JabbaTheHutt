@@ -1,7 +1,5 @@
 import { getRandom } from "../functions/getRandomFromArray"
-import { removeVN } from "../functions/removeVN"
-import { loseEmotes } from "./../lists"
-import { randomEmotes } from "./../lists"
+import { randomEmotes } from "../jsons/lists"
 
 import { client } from ".."
 
