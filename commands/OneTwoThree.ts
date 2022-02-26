@@ -263,6 +263,7 @@ module.exports = {
               const len = sheet.data.values.length
               message.channel.send(`Top OneTwoThree Wins: ${getRandom(randomEmotes)}`)
               let i = 1
+              let top = ''
               while (i < len) {
         
                 let user = `<@${sheet.data.values[i][4]}>`
@@ -270,9 +271,10 @@ module.exports = {
                 let wins = +sheet.data.values[i][5]
                 let loses = +sheet.data.values[i][6]
                 let winrate = (wins / (wins + loses) * 100).toFixed(2)
-                message.channel.send(`${i}.${user} - Wins: ${wins} - Winrate: ${winrate}% ${getRandom(randomEmotes)}`)
+                top = top + `${i}.${user} - Wins: ${wins} - Winrate: ${winrate}% ${getRandom(randomEmotes)}\n`
                 i++
               }
+              message.channel.send(top)
         
         
             })
