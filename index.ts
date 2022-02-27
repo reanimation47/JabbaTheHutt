@@ -67,7 +67,19 @@ client.on('messageCreate', async (message) => {
 		console.error(error);
 		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+
+  const command1 = client.commands.get('getImgur')
+  if (!command1) return;
+  try {
+		await command1.execute(message);
+	} catch (error) {
+		console.error(error);
+		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 })
+
+//Get imgur pics by search
+
 
 //Get crypto prices
 

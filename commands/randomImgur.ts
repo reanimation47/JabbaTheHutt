@@ -52,7 +52,7 @@ module.exports = {
         let mes: string = message.content.toLowerCase()
         let mess: string = removeVN(mes)
         if (message.author.id === "939491082717249558") return;
-        if (mess.includes('pic')) {
+        if (mess.includes('poc')) {
             (async () => {
               const res = await valid()
               message.channel.send({ files: [res] });

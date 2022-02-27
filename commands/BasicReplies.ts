@@ -80,9 +80,6 @@ module.exports = {
         } else if (mess.includes('yum') || mess.includes('ngon') || mess.includes('deli')) {
             message.channel.send(`https://tenor.com/view/jabba-the-hutt-monster-starwarsmay4-flirt-gif-13644607`)
 
-        } else if (mess.includes('poc')) {
-            message.channel.send('poc');
-
         } else if (mess.includes('hah') || mess.includes('heh') || mess.includes('hoh') || mess.includes('fun') || mess.includes('cuoi') || mess.includes('dumb')) {
             let random = Math.floor(Math.random() * laugh.length);
             message.channel.send(laugh[random]);
