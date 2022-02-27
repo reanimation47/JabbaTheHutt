@@ -48,15 +48,21 @@ module.exports = {
                         return response.json()
                     })
                     .then(data => {
+                        if (data.data.length==0){
+                            message.channel.send(`No pic found ${getRandom(randomEmotes)} `)
+                            return
+                        }
                         let choice = Math.floor(Math.random() * (data.data.length + 1));
                         let img = data.data[choice].link
-                        if (img.includes('i.imgur')){
+                        if (img.includes('i.imgur')&&((typeof img)=='string')) {
                             message.channel.send({ files: [img] });
-                            console.log(img)
+                            console.log('img: ' + img)
+                            console.log(typeof img)
                             return
-                        }else{
+                        } else {
                             message.channel.send(img)
                             console.log(img)
+                            console.log(typeof img)
                         }
 
                     }).catch(error => {
