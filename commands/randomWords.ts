@@ -11,7 +11,7 @@ module.exports = {
         let mes = message.content.toLowerCase()
         let mess = removeVN(mes)
         if (message.author.id === "939491082717249558") return;
-        if (mess.includes('fatcheck') || mess.includes('jabba')) {
+        if (mess.includes('fatcheck') || mess.includes('jabba fat')) {
             while (true) {
                 let a = sentence()
                 if (!a.includes('However')) {
