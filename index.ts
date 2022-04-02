@@ -161,6 +161,17 @@ client.on('messageCreate', async (message) => {
 		console.error(error);
 		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+
+
+	//Jabba repeat words
+	const JabbaSay = client.commands.get('JabbaSay')
+	if (!JabbaSay) return;
+	try {
+		await JabbaSay.execute(message);
+	} catch (error) {
+		console.error(error);
+		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 })
 
 
