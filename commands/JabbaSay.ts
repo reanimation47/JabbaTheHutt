@@ -18,7 +18,7 @@ module.exports = {
         if (mess.includes('699533303044374528')) {
             // let user = client.users.cache.get("699533303044374528");
             // console.log(user)
-            message.reply('deeznuts'+getRandom(randomEmotes))
+            message.reply('deeznuts '+getRandom(randomEmotes))
         }
     }
 }
