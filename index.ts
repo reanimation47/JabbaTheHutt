@@ -47,6 +47,15 @@ for (const file of commandFiles) {
 
 client.on('messageCreate', async (message) => {
 
+	//jabba help
+	const JabbaHelp = client.commands.get('jabba help')
+	if (!JabbaHelp) return;
+	try {
+		await JabbaHelp.execute(message);
+	} catch (error) {
+		console.error(error);
+		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 
 	//Get random imgur pics
 	const randomImgur = client.commands.get('randomImgur')
@@ -172,6 +181,8 @@ client.on('messageCreate', async (message) => {
 		console.error(error);
 		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+
+	
 })
 
 
