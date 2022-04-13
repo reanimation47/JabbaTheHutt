@@ -1,6 +1,7 @@
 import { Intents, Message } from 'discord.js';
 import * as DiscordJS from 'discord.js'
 import * as dotenv from 'dotenv';
+import { validateAudioURL } from 'distube';
 dotenv.config();
 
 export const client: any = new DiscordJS.Client({
@@ -36,10 +37,7 @@ for (const file of commandFiles) {
 }
 
 
-// (async () => {
-//   const res = await valid()
-//   console.log(`da stuff is ${res}`)
-// })();
+
 
 
 
@@ -181,6 +179,7 @@ client.on('messageCreate', async (message) => {
 		console.error(error);
 		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+	
 
 	
 })
