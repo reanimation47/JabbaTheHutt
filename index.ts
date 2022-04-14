@@ -21,7 +21,9 @@ export const client: any = new DiscordJS.Client({
 
 
 client.on('ready', () => {
+	client.user.setActivity('jabba help for more info', {type: 'PLAYING'})
 	console.log('The bot is ready')
+
 })
 
 //Commands handler

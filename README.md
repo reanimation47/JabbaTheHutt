@@ -10,3 +10,4 @@ What can Jabba do ?
  * Retrieves real-time Crypto data ( ex: tell the Discord server about current Bitcoin price ).
  * Retrieves weather forecast data with the time and location which the user requested (ex: get Hanoi's weather forecast for the day after tmr )
  * Reminder (ex: jabba remind me to study in 10 minutes)
+ 
