@@ -20,10 +20,12 @@
     "discord.js": "^13.6.0",
     "distube": "^3.3.1-1",
     "dotenv": "^16.0.0",
+    "exaroton": "^1.8.0",
     "ffmpeg-static": "^4.4.1",
     "googleapis": "^95.0.0",
     "imagesize": "^1.0.0",
     "libsodium-wrappers": "^0.7.9",
+    "node-cron": "^3.0.1",
     "nodemon": "^2.0.15",
     "probe-image-size": "^7.2.3",
     "txtgen": "^3.0.1"

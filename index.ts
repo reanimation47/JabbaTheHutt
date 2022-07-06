@@ -182,6 +182,16 @@ client.on('messageCreate', async (message) => {
 		await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 	
+	//Jabba cron jobs
+        const JabbaCronJobs = client.commands.get('JabbaCronJobs')
+        if (!JabbaCronJobs) return;
+        try {
+                await JabbaCronJobs.execute(message);
+        } catch (error) {
+                console.error(error);
+                await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
+	
 
 	
 })
