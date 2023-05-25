@@ -46,7 +46,7 @@ module.exports = {
         // if(message.author.bot) return;
         if (mess === 'ping') {
             message.reply({
-                content: 'pongggg',
+                content: 'papapapa',
             })
         } else if (mess.includes('time') || mess.includes('taim')) {
             message.channel.send('ɪᴛs ʀᴀᴍᴍᴍᴍᴍᴍ ᴛɪᴍᴇᴇᴇᴇᴇ')
