@@ -27,6 +27,7 @@
     "libsodium-wrappers": "^0.7.9",
     "node-cron": "^3.0.1",
     "nodemon": "^2.0.15",
+    "openai": "^3.2.1",
     "probe-image-size": "^7.2.3",
     "txtgen": "^3.0.1"
   },

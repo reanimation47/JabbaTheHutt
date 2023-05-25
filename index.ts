@@ -192,7 +192,15 @@ client.on('messageCreate', async (message) => {
                 await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
 	
-
+	//Cursing on DMs
+	const OpenAI = client.commands.get('OpenAI')
+	if (!OpenAI) return;
+	try {
+		await OpenAI.execute(message);
+	} catch (error) {
+		console.error(error);
+		await message.reply({ content: `Something's wrong, help :(`, ephemeral: true });
+	}
 	
 })
 
