@@ -15,7 +15,7 @@ cron.schedule('0 9 * * *', async () => {
                 let account = await exaroton.getAccount();
                 console.log("My account is " + account.name + " and I have " + account.credits + " credits.");
 
-		client.channels.cache.get("794818082584526868").send("Daily update: \nThe minecraft server has " + account.credits + " credits left")
+		client.channels.cache.get("794798473668460545").send("Daily update: \nThe minecraft server has " + account.credits + " credits left")
         });
 
 
