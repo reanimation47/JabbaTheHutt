@@ -36,7 +36,14 @@ module.exports = {
 
             //client.channels.cache.get("794818082584526868").send(mess);
             let _reply = await ask_gpt(mess);
-            message.channel.send(_reply);
+            if (_reply == null)
+            {
+                message.channel.send("jpt ain't available today" + getRandom(randomEmotes));
+            }else
+            {
+                message.channel.send(_reply);
+            }
+            
         }
     }
 }
