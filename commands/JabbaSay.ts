@@ -13,12 +13,7 @@ module.exports = {
         if (message.author.id === "939491082717249558") return;
         if (mess.includes('jabba say')) {
             mess = mess.replace('jabba say','')
-            client.channels.cache.get("794818082584526868").send(mess);
-        }
-        if (mess.includes('699533303044374528')) {
-            // let user = client.users.cache.get("699533303044374528");
-            // console.log(user)
-            message.reply('deeznuts '+getRandom(randomEmotes))
+            client.channels.cache.get("961499123851350036").send(mess);
         }
     }
 }
