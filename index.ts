@@ -11,6 +11,7 @@ export const client: any = new DiscordJS.Client({
 		Intents.FLAGS.GUILD_VOICE_STATES,
 		Intents.FLAGS.DIRECT_MESSAGES,
 		Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+		Intents.FLAGS.GUILD_MESSAGE_REACTIONS
 	],
 	partials: [
 		'CHANNEL', // Required to receive DMs

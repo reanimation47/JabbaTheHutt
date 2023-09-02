@@ -82,6 +82,7 @@ module.exports = {
 
         } else if (mess.includes('hah') || mess.includes('heh') || mess.includes('hoh') || mess.includes('fun') || mess.includes('cuoi') || mess.includes('dumb')) {
             let random = Math.floor(Math.random() * laugh.length);
+            message.react('😄');
             message.channel.send(laugh[random]);
 
         } else if (mess.includes('sexy') || mess.includes('sexi')) {
