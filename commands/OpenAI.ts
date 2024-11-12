@@ -26,7 +26,14 @@ module.exports = {
             //client.channels.cache.get("794818082584526868").send(mess);
             let _reply = await ask_gpt(_template_msg);
             message.channel.send(_reply);
-        }else if (mess.includes('jpt')){
+            
+        }else if (mess.includes('jpts')){ //serious mode
+            mess = mess.replace('jpts','')
+            let _reply = await ask_gpt(mess);
+            message.channel.send(_reply);
+            
+        }
+        else if (mess.includes('jpt')){
             let _random:number = Math.random();
             let _template_msg:string;
             mess = mess.replace('jpt','')

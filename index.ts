@@ -202,7 +202,29 @@ client.on('messageCreate', async (message) => {
 		console.error(error);
 		await message.reply({ content: `Something's wrong, help :(`, ephemeral: true });
 	}
+
 	
+	
+})
+
+client.on("interactionCreate", async interaction => {
+	
+	// const oldInteractions = client.commands.get('oldInteractions')
+	// if (!oldInteractions) return;
+	// try {
+	// 	await oldInteractions.execute(interaction);
+	// } catch (error) {
+	// 	console.error(error);
+	// 	await interaction.reply({ content: `Something's wrong, help :(`, ephemeral: true });
+	// }
+	console.log(interaction)
+	const { commandName, options } = interaction
+        
+          if (commandName === 'ping') {
+            interaction.reply({
+              content: 'pong',
+            })
+          }
 })
 
 

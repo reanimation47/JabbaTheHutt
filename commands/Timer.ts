@@ -42,8 +42,8 @@ module.exports = {
                 return
             }
             let ms = sum * 1000 * 60;
-            if (sum > 60) {
-                message.channel.send(`Jabba dont wanna count beyond 60 minutes ${getRandom(randomEmotes)}`)
+            if (sum > 600) {
+                message.channel.send(`Jabba dont wanna count beyond 600 minutes ${getRandom(randomEmotes)}`)
                 return
             }
             message.channel.send(`⏲ jabba will remind u to ${work}in ${sum} minutes ${getRandom(randomEmotes)} `)

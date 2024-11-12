@@ -44,7 +44,8 @@ module.exports = {
         const multiplySign = /[*]+/;
         if (message.author.username === "jabba the hutttt") return;
         // if(message.author.bot) return;
-        if (mess === 'ping') {
+        
+        if (mess === 'pingy') {
             message.reply({
                 content: 'papapapa',
             })
@@ -83,7 +84,7 @@ module.exports = {
         } else if (mess.includes('hah') || mess.includes('heh') || mess.includes('hoh') || mess.includes('fun') || mess.includes('cuoi') || mess.includes('dumb')) {
             let random = Math.floor(Math.random() * laugh.length);
             message.react('🤡');
-            message.channel.send(laugh[random]);
+            // message.channel.send(laugh[random]);
 
         } else if (mess.includes('sexy') || mess.includes('sexi')) {
             var random = Math.floor(Math.random() * sexi.length);

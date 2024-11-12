@@ -8,7 +8,7 @@ module.exports = {
         
           const { commandName, options } = interaction
         
-          if (commandName === 'ping') {
+          if (commandName === 'pingy') {
             interaction.reply({
               content: 'pong',
             })
